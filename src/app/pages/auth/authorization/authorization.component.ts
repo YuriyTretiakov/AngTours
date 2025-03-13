@@ -1,48 +1,52 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { IUser } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
-
-// @Component({
-//   selector: 'app-authorization',
-//   imports: [],
-//   templateUrl: './authorization.component.html',
-//   styleUrl: './authorization.component.scss',
-// })
-// export class AuthorizationComponent { }
-
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authorization',
-  imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule ],
+  imports: [NgClass, FormsModule, ButtonModule, InputTextModule ],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.scss',
 })
-export class AuthorizationComponent implements OnInit {
+export class AuthorizationComponent implements OnInit, OnDestroy {
   
-  login: string = null;
+  login: string;
   password: string;
-  // repeatPassword: string;
-  cardNumber: string;
-  // email: string;
-  // isRemember: boolean;
-  // labelText = 'Сохранить пользователя в хранилище';
-constructor(private userService: UserService) {
-}
+ constructor(private userService: UserService,
+  private messageService: MessageService,
+  private router: Router
+ ) { }
 
 ngOnInit(): void {
   // this.userService
 }
+ngOnDestroy(): void {}
 
-onAuth(ev: Event): void {
-console.log('ev', ev)
-this.userService.addUser({login: this.login, password: this.password});
+onAuth(): void{
+
+const user: IUser ={
+  login: this.login,
+  password: this.password,
 }
-input(ev:Event): void {
-  console.log('sd', ev)
+this.userService.authUser(user).subscribe(
+  () => {this.initToast('success','Вход выполнен')
+    // this.messageService.add({ severity: 'success', detail: 'Регистрация прошла успешно' });
+  this.router.navigate(['tickets']);
+  },
+  () => {this.initToast('error','Ошибка входа')
+    // this.messageService.add({ severity: 'error', detail: 'Произошла ошибка' });
+  }
+);
 }
- }
+
+
+initToast(type: 'error' | 'success', text: string): void {
+  this.messageService.add({ severity: type, detail: text, life: 3000 });
+}
+}
