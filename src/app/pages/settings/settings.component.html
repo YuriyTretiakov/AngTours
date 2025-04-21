@@ -1,0 +1,36 @@
+<!-- <div class="grid">
+    <div class="col-3">
+      @for (item of menuItems ; track item.label){      
+        <div class="col">
+          <p-button
+            [label]="item.label"
+            styleClass="item-list p-button-link"
+            (click)="onMenuItemClick(item.path)"
+          ></p-button>
+        </div>
+      } @empty {
+        <p>
+            нет данных!
+        </p>
+      }
+    </div>
+  
+    <div class="col-3">
+      <app-password-change />
+    </div>
+  </div> -->
+  <div class="settings-wrap">
+
+    @for ( item of menuItems; track item.path) {
+      <p-button
+      label="{{item.label}}"
+      styleClass="p-button-link"
+      [routerLink]="item.path">
+
+      </p-button>
+
+    }
+    <div class="menu-content">
+      <router-outlet/>
+    </div>
+  </div>

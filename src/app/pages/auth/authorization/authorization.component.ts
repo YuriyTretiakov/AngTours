@@ -35,9 +35,11 @@ const user: IUser ={
   password: this.password,
 }
 this.userService.authUser(user).subscribe(
-  () => {this.initToast('success','Вход выполнен')
+  // () => {this.initToast('success','Вход выполнен')
+    () => {
+      this.userService.setUser(user)
     // this.messageService.add({ severity: 'success', detail: 'Регистрация прошла успешно' });
-  this.router.navigate(['tickets']);
+  this.router.navigate(['tours']);
   },
   () => {this.initToast('error','Ошибка входа')
     // this.messageService.add({ severity: 'error', detail: 'Произошла ошибка' });

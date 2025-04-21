@@ -1,3 +1,36 @@
-<div>
-    header
+<div class="layout-header">
+    <div class="layout-header__menu px-2">
+        <div class="grid grid-nogutter">
+            <div class="col justify-content-center align-content-center">
+                <p-menubar [model]="menuItems" [autoDisplay]="false" class="flex justify-content-center">
+                    
+                </p-menubar>    
+            </div>
+        </div>
+    </div>
+    <!--right block with user action and date-->
+    
+    <div class="layout-header__right-block">
+        <div class="user-info"> </div>
+        <div class="logout">
+            <p-button
+                [icon]="logoutIcon"
+                label="{{user?.login}}"
+                pTooltip="Logout"
+                (mouseenter)="hoverLogoutBtn(true)"
+                (mouseleave)="hoverLogoutBtn(false)"
+                (onClick)="logOut()"
+                severity="secondary"
+                >
+            </p-button>
+        </div>
+        <div class="date">
+            <div>
+                {{dateTime | date: 'HH:mm:ss'}}
+            </div>
+            <div class="p-0 m-0">
+                {{dateTime | date: 'EEEE'}}
+            </div>
+        </div>
+    </div>
 </div>
