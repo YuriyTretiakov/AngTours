@@ -59,6 +59,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
   this.userService.setUser(null);
   this.router.navigate(['/auth']);
  }
+ getLogin() {
+  return this.user?.login;
+  
+ }
  hoverLogoutBtn(val: boolean): void {
  if (this.user?.login) {
 

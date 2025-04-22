@@ -38,9 +38,9 @@ export class AsideComponent implements OnInit, OnDestroy {
 
   clearDate(ev: Date): void {
     console.log('date****');
-  //   this.date = null;
-  //  this.tourService.initChangeTourDate(this.date);
-  //  this.tourService.initChangeTourType(this.selectedType);
+    this.date = null;
+   this.tourService.initChangeTourDate(this.date);
+   this.tourService.initChangeTourType(this.selectedType);
     
   }
   ngOnDestroy(): void {

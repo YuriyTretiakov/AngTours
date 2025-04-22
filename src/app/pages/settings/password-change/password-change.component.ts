@@ -46,13 +46,13 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.visible = false;
   }
 
-  onNewPassword(ev: Event): void {
-    const postObj = {login: sessionStorage.getItem('login'), password: this.newPassword} as IUser
-    this.userService.setNewUserPassword(postObj).subscribe(
-      () => {
-        console.log("успешно"),
-      () => {
-        console.log("ошибка")}
-      })
-    }
+  // onNewPassword(ev: Event): void {
+  //   const postObj = {login: sessionStorage.getItem('login'), password: this.newPassword} as IUser
+  //   this.userService.setUser(postObj).subscribe(
+  //     () => {
+  //       console.log("успешно"),
+  //     () => {
+  //       console.log("ошибка")}
+  //     })
+  //   }
 }

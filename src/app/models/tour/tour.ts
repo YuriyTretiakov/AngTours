@@ -12,12 +12,13 @@ export interface ITour {
     code?: string;
 }
 export interface ITourServerResponse {
-    tours: ITour[]
+    tours: ITour[];
 }
 
 export interface ITourType {
-    key: string;
-    label: string;
+    // key: string;
+    key: 'all' | 'single' | 'group';
+    label?: string;
 }
 
 
@@ -26,4 +27,8 @@ export interface ICountriesResponseItem {
     iso_code3: string;
     name_ru: string;
     flag_url: string;
+}
+export interface ILocation {
+    lat: number;
+    lng: number;
 }

@@ -10,4 +10,6 @@ export const API: any = {
     tour: `${serverIp}/tour`,
     config: `/config/config.json`,
     nearestTours: `${serverIp}/nearestTours`,
+    countries: `${serverIp}/countries`,
+    countryByCode: 'https://restcountries.com/v3.1/alpha',
 }

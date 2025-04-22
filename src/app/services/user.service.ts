@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser, IUserRegister } from '../models/user';
+import { IUser, IUserRegister, UserStoragKey } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../shared/api';
 import { Observable } from 'rxjs';
@@ -20,28 +20,33 @@ export class UserService {
   }
 
   authUser(user: IUser): Observable<string> {
-    return this.http.post(API.auth, user,{responseType: 'text'});
+    return this.http.post<string>(API.auth, user
+      // ,{responseType: 'text'}
+    );
   }
   getUser(): IUser {
-    return this.currentUser || JSON.parse(sessionStorage.getItem('login'));
+    const userFromStorage = sessionStorage.getItem(UserStoragKey);
+    return this.currentUser || JSON.parse(userFromStorage);
   }
 
-  setNewUserPassword(user: IUser): Observable<string> {
-    return this.http.post(API.newPasswordSetting, user, {responseType: 'text'});
-  }
-
+  
   setUser(user: IUser): void {
     this.currentUser = user;
-    if (user !== null) {
-      sessionStorage.setItem('login', JSON.stringify(user.login));
-    } else {
-      sessionStorage.setItem('login', '');
-    }
-    console.log(sessionStorage)
+    sessionStorage.setItem(UserStoragKey, JSON.stringify({login: user.login}));
+    // if (user !== null) {
+    //   sessionStorage.setItem('login', JSON.stringify(user.login));
+    // } else {
+    //   sessionStorage.setItem('login', '');
+    // }
+    // console.log(sessionStorage)
   }
 
-  setSessionStorageLogin(user: IUser | null): void {
-    sessionStorage.setItem('login', user.login);
-  }
+//   setNewUserPassword(user: IUser): Observable<string> {
+//     return this.http.post(API.newPasswordSetting, user, {responseType: 'text'});
+//   }
+
+//   setSessionStorageLogin(user: IUser | null): void {
+//     sessionStorage.setItem('login', user.login);
+//   }
 
 }
